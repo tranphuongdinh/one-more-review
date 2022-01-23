@@ -1,0 +1,148 @@
+<div class="auth-container">
+  <div class="main-container" [ngClass]="{'sign-in': isSignIn, 'sign-up': !isSignIn}">
+    <img
+      src="../../../../assets/imgs/auth-poster.jpg"
+      alt="Poster"
+      class="poster"
+    />
+    <div class="sign-up" *ngIf="!isSignIn">
+      <div class="sign-up__content">
+        <form [formGroup]="signUpForm" (ngSubmit)="onResigterSubmit()">
+          <h2 class="form-title">ĐĂNG KÍ</h2>
+          <div class="form-group">
+            <span class="label-input">Email</span>
+            <input
+              class="inputEmail"
+              type="text"
+              formControlName="email"
+              name="email"
+              placeholder="Type your email"
+              [ngClass]="{ 'is-invalid': signUpSubmitted && fr.email.errors }"
+            />
+            <div
+              *ngIf="signUpSubmitted && fr.email.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="fr.email.errors.required">*Trường này là bắt buộc</div>
+              <div *ngIf="fr.email.errors.email">*Email không hợp lệ</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <span class="label-input">Mật khẩu</span>
+            <input
+              class="inputPassword"
+              type="password"
+              formControlName="password"
+              name="password"
+              placeholder="Type your password"
+              [ngClass]="{
+                'is-invalid': signUpSubmitted && fr.password.errors
+              }"
+            />
+            <div
+              *ngIf="
+                signUpSubmitted && (fr.password.errors || signUpNotification)
+              "
+              class="invalid-feedback"
+            >
+              <div>Mật khẩu phải có độ dài ít nhất 6 kí tự</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <span class="label-input">Xác nhận mật khẩu</span>
+            <input
+              class="inputPassword"
+              type="password"
+              formControlName="confirmPassword"
+              name="password"
+              placeholder="Confirm your password"
+              [ngClass]="{
+                'is-invalid': signUpSubmitted && fr.confirmPassword.errors
+              }"
+            />
+            <div
+              *ngIf="
+                signUpSubmitted &&
+                (fr.confirmPassword.errors || signUpNotification)
+              "
+              class="invalid-feedback"
+            >
+              <div>Xác nhận mật khẩu không đúng</div>
+            </div>
+          </div>
+          <div class="switch-link">
+            <span>Đã có tài khoản?</span>
+            <a (click)="togglePoster()"> Đăng nhập ngay </a>
+          </div>
+
+          <button class="btn-submit" type="submit">Đăng kí</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="sign-in" *ngIf="isSignIn">
+      <div class="sign-in__content">
+        <form [formGroup]="signInForm" (ngSubmit)="onLoginSubmit()">
+          <h2 class="form-title">ĐĂNG NHẬP</h2>
+
+          <div class="form-group">
+            <span class="label-input">Email</span>
+            <input
+              class="inputEmail"
+              type="text"
+              formControlName="email"
+              name="email"
+              placeholder="Type your email"
+              [ngClass]="{ 'is-invalid': signInSubmitted && fl.email.errors }"
+            />
+            <div
+              *ngIf="signInSubmitted && fl.email.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="fl.email.errors.required">*Trường này là bắt buộc</div>
+              <div *ngIf="fl.email.errors.email">*Email không hợp lệ</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <span class="label-input">Mật khẩu</span>
+            <input
+              class="inputPassword"
+              type="password"
+              formControlName="password"
+              name="password"
+              placeholder="Type your password"
+              [ngClass]="{
+                'is-invalid': signInSubmitted && fl.password.errors
+              }"
+            />
+            <div
+              *ngIf="
+                signInSubmitted && (fl.password.errors || signInNotification)
+              "
+              class="invalid-feedback"
+            >
+              <div>*Trường này là bắt buộc</div>
+            </div>
+          </div>
+
+          <a
+            (click)="onResetPassword()"
+            class="label-input forgot-password text-right hover:underline cursor-pointer"
+          >
+            Quên mật khẩu?
+          </a>
+
+          <button class="btn-submit" type="submit">ĐĂNG NHẬP</button>
+
+          <div class="switch-link">
+            <span>Chưa có tài khoản? </span>
+            <a (click)="togglePoster()"> Đăng kí ngay </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

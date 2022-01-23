@@ -1,0 +1,111 @@
+.edit-film {
+  .edit-film-container {
+    @apply text-white bg-gray-900 p-20;
+
+    @media (max-width: 900px) {
+      @apply p-10;
+    }
+
+    .edit-film-title {
+      @apply text-4xl font-black uppercase relative pl-4 mb-10;
+      &:before {
+        content: "";
+        @apply absolute top-0 left-0 w-1 h-full bg-purple-900;
+      }
+    }
+
+    .film-materials {
+      @apply grid grid-cols-1 gap-10 mt-10;
+    }
+
+    .edit-film-content {
+      @apply grid grid-cols-3 justify-between items-center gap-10;
+
+      @media (max-width: 1300px) {
+        @apply grid grid-cols-2 gap-10;
+      }
+
+      @media (max-width: 476px) {
+        @apply grid grid-cols-1 gap-10;
+      }
+    }
+
+    .form-group {
+      @apply flex justify-start items-start w-full;
+
+      @media (max-width: 900px) {
+        @apply flex-col;
+      }
+
+      .label {
+        @apply w-32 inline-block;
+        @media (max-width: 900px) {
+          @apply mb-2;
+        }
+      }
+
+      .input-group {
+        @apply flex flex-col justify-start items-start;
+
+        .text-error {
+          @apply text-red-500 italic text-sm mt-1;
+        }
+      }
+
+      .input-group.description {
+        @apply w-full;
+      }
+
+      input,
+      textarea {
+        @apply bg-gray-800 rounded;
+      }
+
+      textarea {
+        @apply w-full;
+      }
+
+      .img-preview {
+        @apply bg-gray-700 ml-5;
+        @media (max-width: 900px) {
+          @apply ml-0 mt-5;
+        }
+        &.big-poster {
+          width: 350px;
+          height: 175px;
+
+          @media (max-width: 900px) {
+            @apply w-full;
+          }
+        }
+
+        &.mini-poster {
+          width: 180px;
+          height: 280px;
+        }
+
+        &.review {
+          width: 700px;
+          height: 350px;
+          @media (max-width: 900px) {
+            @apply w-full;
+            height: 250px;
+          }
+        }
+
+        img,
+        iframe {
+          @apply w-full h-full object-cover;
+        }
+      }
+    }
+
+    .edit-button {
+      @apply flex justify-end items-center;
+      @apply mt-10;
+      button {
+        @apply ml-5;
+      }
+    }
+  }
+}

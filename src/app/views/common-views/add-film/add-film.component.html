@@ -1,0 +1,333 @@
+<app-header></app-header>
+<div class="add-film">
+  <div class="add-film-container">
+    <form (submit)="onSubmit()">
+      <h2 class="add-film-title">Thêm Phim</h2>
+
+      <div class="add-film-content">
+        <div class="form-group">
+          <span class="label">Tên phim</span>
+          <div class="input-group">
+            <input
+              [(ngModel)]="filmName"
+              name="name"
+              id="film-name"
+              type="text"
+              required
+            />
+            <span
+              *ngIf="strLength(filmName) < 1 && isSubmitted"
+              class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Thể loại</span>
+          <div class="input-group">
+            <p-dropdown
+              styleClass="filter-dropdown"
+              placeholder="Thể loại"
+              name="genre"
+              [options]="genres"
+              [(ngModel)]="selectedGenre"
+              optionLabel="name"
+              optionValue="name"
+              [showClear]="true"
+            ></p-dropdown>
+            <span
+              *ngIf="strLength(selectedGenre) < 1 && isSubmitted"
+              class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Loại</span>
+          <div class="input-group">
+            <p-dropdown
+              styleClass="filter-dropdown"
+              placeholder="Loại"
+              [options]="types"
+              [(ngModel)]="selectedType"
+              optionLabel="name"
+              optionValue="name"
+              [showClear]="true"
+              name="types"
+            ></p-dropdown>
+            <span
+              *ngIf="strLength(selectedType) < 1 && isSubmitted"
+              class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Năm phát hành</span>
+          <div class="input-group">
+            <input
+              placeholder="Năm phát hành"
+              [(ngModel)]="selectedYear"
+              type="number"
+              name="year"
+            />
+            <span *ngIf="selectedYear == 0 && isSubmitted" class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Quốc gia</span>
+          <div class="input-group">
+            <p-dropdown
+              styleClass="filter-dropdown"
+              placeholder="Quốc gia"
+              [options]="nations"
+              [(ngModel)]="selectedNation"
+              optionLabel="name"
+              optionValue="name"
+              [showClear]="true"
+              name="nations"
+            ></p-dropdown>
+            <span
+              *ngIf="strLength(selectedNation) < 1 && isSubmitted"
+              class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Trạng thái</span>
+          <div class="input-group">
+            <p-dropdown
+              styleClass="filter-dropdown"
+              placeholder="Trạng thái"
+              [options]="statuses"
+              [(ngModel)]="status"
+              optionLabel="name"
+              optionValue="name"
+              [showClear]="true"
+              name="statuses"
+            ></p-dropdown>
+            <span
+              *ngIf="strLength(status) < 1 && isSubmitted"
+              class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Thời lượng</span>
+          <div class="input-group">
+            <input
+              type="text"
+              id="input-duration"
+              [(ngModel)]="duration"
+              required
+              name="duration"
+            />
+            <span
+              *ngIf="strLength(duration) < 1 && isSubmitted"
+              class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Đánh giá</span>
+          <div class="input-group">
+						<input type="number" min="1" max="5" [(ngModel)]="avgRating">
+            <span *ngIf="(avgRating < 1 || avgRating > 5) && isSubmitted" class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Diễn viên</span>
+          <div class="input-group">
+            <input
+              type="text"
+              id="input-actors"
+              [(ngModel)]="actors"
+              required
+              name="actors"
+            />
+            <span
+              *ngIf="strLength(actors) < 1 && isSubmitted"
+              class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Đạo diễn</span>
+          <div class="input-group">
+            <input
+              type="text"
+              id="input-directors"
+              [(ngModel)]="directors"
+              required
+              name="directors"
+            />
+            <span
+              *ngIf="strLength(directors) < 1 && isSubmitted"
+              class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Kênh review</span>
+          <div class="input-group">
+            <input
+              type="text"
+              id="input-reviewChannel"
+              [(ngModel)]="reviewChannel"
+              required
+              name="review-channel"
+            />
+            <span
+              *ngIf="strLength(reviewChannel) < 1 && isSubmitted"
+              class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Trailer</span>
+          <div class="input-group">
+            <input
+              type="text"
+              id="input-trailer"
+              [(ngModel)]="trailer"
+              required
+              name="trailer"
+            />
+            <span
+              *ngIf="strLength(trailer) < 1 && isSubmitted"
+              class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="film-materials">
+        <div class="form-group">
+          <span class="label">Nội dung</span>
+          <div class="input-group description">
+            <textarea
+              [(ngModel)]="description"
+              name="description"
+              id="film-description"
+              cols="30"
+              rows="10"
+              required
+              name="description"
+            ></textarea>
+            <span
+              *ngIf="strLength(description) < 100 && isSubmitted"
+              class="text-error"
+              >*Độ dài tối thiểu là 100 kí tự</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Link ảnh poster lớn</span>
+          <div class="input-group">
+            <input
+              type="text"
+              id="input-big-poster"
+              [(ngModel)]="poster"
+              required
+              name="big-poster"
+            />
+            <span
+              *ngIf="strLength(poster) < 1 && isSubmitted"
+              class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+          <div class="img-preview big-poster">
+            <img [src]="poster" alt="Big poster preview" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Link ảnh poster nhỏ</span>
+          <div class="input-group">
+            <input
+              type="text"
+              id="input-mini-poster"
+              [(ngModel)]="img"
+              required
+              name="mini-poster"
+            />
+            <span *ngIf="strLength(img) < 1 && isSubmitted" class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+          <div class="img-preview mini-poster">
+            <img [src]="img" alt="Mini poster preview" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="label">Link clip review</span>
+          <div class="input-group">
+            <input
+              type="text"
+              id="input-url"
+              [(ngModel)]="url"
+              required
+              name="film-url"
+            />
+            <span *ngIf="strLength(url) < 1 && isSubmitted" class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+          <div class="img-preview review">
+            <iframe
+              [src]="parseSafeResourceUrl(url)"
+              alt="Review preview"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="edit-button">
+        <button
+          pButton
+          pRipple
+          type="submit"
+          class="p-button-primary p-button-rounded p-button-outlined"
+        >
+          Thêm phim
+        </button>
+
+        <button
+          pButton
+          pRipple
+          type="button"
+          (click)="onReset()"
+          class="p-button-outlined p-button-warning p-button-rounded"
+        >
+          Đặt lại
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,118 @@
+<div class="home">
+  <app-header></app-header>
+  <div class="home-container">
+    <div *ngIf="carouselItems && films">
+			<p-carousel
+			class="hidden md:block"
+      [showIndicators]="false"
+      [value]="carouselItems"
+      orientation="vertical"
+      [autoplayInterval]="7500"
+      [circular]="true"
+      styleClass="carousel-container"
+    >
+      <ng-template let-film pTemplate="item" styleClass="carousel-item">
+        <img [src]="film.poster" />
+        <div class="detail">
+          <h2>{{ film.name }}</h2>
+					<div class="mt-5 mb-2">
+						<a [href]="film.trailer" target="blanc"><button pButton type="button" label="Trailer" icon="pi pi-play" class="p-button-danger mr-3"></button></a>
+						<button pButton type="button" label="Xem Review" icon="pi pi-video" class="p-button-help" (click)="onPickFilm(film._id)"></button>
+					</div>
+					<p-rating
+            [(ngModel)]="film.avgRating"
+            [readonly]="true"
+            [cancel]="false"
+            class="flex justify-start items-center text-3xl"
+          ></p-rating>
+          <p>{{ film.description }}</p>
+        </div>
+      </ng-template>
+    </p-carousel>
+
+    <div class="filter-container">
+      <div class="dropdown">
+        <p-dropdown
+          styleClass="filter-dropdown"
+          placeholder="Thể loại"
+          [options]="types"
+          [(ngModel)]="selectedType"
+          optionLabel="name"
+          optionValue="name"
+        ></p-dropdown>
+      </div>
+
+      <div class="dropdown">
+        <p-dropdown
+          placeholder="Quốc gia"
+          [options]="nations"
+          [(ngModel)]="selectedNation"
+          optionLabel="name"
+          optionValue="name"
+        ></p-dropdown>
+      </div>
+
+      <div class="dropdown">
+        <p-dropdown
+          placeholder="Năm phát hành"
+          [options]="years"
+          [(ngModel)]="selectedYear"
+          optionLabel="year"
+          optionValue="year"
+        ></p-dropdown>
+      </div>
+
+      <div
+        class="filter-btn"
+        (click)="onFilterMovie(selectedType, selectedNation, selectedYear)"
+      >
+        <i class="pi pi-filter"></i>
+      </div>
+    </div>
+
+    <div class="page-buttons" *ngIf="allPage">
+      <button
+        pButton
+        pRipple
+        type="button"
+        class="p-button-outlined p-button-rounded p-button-info mr-2"
+        icon="pi pi-minus"
+        (click)="onPrevPage()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        class="p-button-outlined p-button-rounded p-button-info"
+        icon="pi pi-plus"
+        (click)="onNextPage()"
+      ></button>
+      <p>Trang {{ page + 1 }}/{{ allPage }}</p>
+    </div>
+
+    <div class="film-container">
+      <div class="list-container">
+        <div *ngFor="let film of films">
+          <div class="film-item relative" (click)="onPickFilm(film._id)">
+            <p-rating
+              [(ngModel)]="film.avgRating"
+              [readonly]="true"
+              [cancel]="false"
+              class="flex justify-center items-center absolute top-3 right-3"
+            ></p-rating>
+            <img
+              src="{{ film.img }}"
+              alt="{{ film.name }}"
+              class="film-image"
+            />
+            <div class="film-info">
+              <h3>{{ film.name }}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+		</div>
+  </div>
+  <app-footer></app-footer>
+</div>

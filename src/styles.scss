@@ -1,0 +1,148 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "primeicons/primeicons.css";
+@import "primeng/resources/themes/saga-blue/theme.css";
+@import "primeng/resources/primeng.min.css";
+@import "~ngx-toastr/toastr";
+/* You can add global styles to this file, and also import other style files */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+.p-dropdown {
+  @apply border-gray-500 bg-gray-900 text-white;
+  .p-dropdown-label {
+    @apply w-36 border-r-0 text-white;
+  }
+
+  .p-dropdown-item {
+    @apply bg-gray-900;
+  }
+
+  .p-dropdown-filter {
+    @apply bg-gray-900 text-white;
+  }
+
+  .p-dropdown-trigger {
+    @apply text-white bg-gray-900;
+  }
+}
+
+.home-container {
+  .p-carousel-container {
+    .p-carousel-items-content {
+      height: 80vh !important;
+      .p-carousel-item {
+        @apply h-full rounded-sm relative flex justify-center items-center w-full mx-auto;
+        &::before {
+          content: "";
+          @apply absolute top-0 left-0 w-full h-full bg-gray-900 opacity-70;
+        }
+
+        .detail {
+          @apply absolute z-10 bottom-0 left-0 p-14;
+          &::before {
+            content: "";
+            @apply absolute top-0 left-0 w-2 h-full bg-purple-900;
+          }
+          &::after {
+            content: "";
+            @apply absolute bottom-0 left-0 w-full h-2 bg-purple-900;
+          }
+
+          h2 {
+            @apply text-white text-5xl font-black uppercase;
+          }
+          p {
+            @apply text-white text-xl text-justify mt-8;
+          }
+        }
+
+        img {
+          @apply w-full h-full rounded-sm bg-gray-900;
+          -o-object-position: top;
+          object-position: top;
+        }
+      }
+    }
+  }
+}
+
+
+.reviews {
+  .p-carousel-container {
+    .p-carousel-items-content {
+			height: 100%;
+      .p-carousel-item {
+				@apply px-2;
+				@media (max-width:768px) {
+					@apply px-1;
+				}
+        .carousel-item-wrapper {
+					&.comment {
+						@apply mt-3;
+					}
+					@apply bg-gray-800 p-5 rounded;
+				}
+      }
+    }
+  }
+}
+
+.p-rating .p-rating-icon.pi-star {
+  color: rgb(255, 236, 68);
+}
+
+.p-input-icon-right.search i {
+		@media (max-width:768px) {
+		display: none;
+	}
+}
+
+.p-inputtext.inputSearch {
+  @apply bg-gray-900 text-white rounded-sm;
+  width: 500px;
+	@media (max-width: 1250px) {
+		width: 300px;
+	}
+	@media (max-width:768px) {
+		display: none;
+	}
+
+}
+
+.p-confirm-popup {
+	@apply bg-gray-700 text-white;
+}
+
+.p-confirm-popup::before {
+	@apply border-gray-700;
+    border: solid transparent;
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(55, 65, 81, var(--tw-border-opacity));
+}
+
+.p-confirm-popup::after {
+	@apply border-gray-700;
+    border: solid transparent;
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(55, 65, 81, var(--tw-border-opacity));
+}
+
+.p-dialog {
+	.p-dialog-header {
+	@apply bg-gray-700 text-white;
+}
+
+	.p-dialog-content {
+	@apply bg-gray-700 text-white;
+}
+
+	.p-dialog-footer {
+	@apply bg-gray-700 text-white;
+}
+}

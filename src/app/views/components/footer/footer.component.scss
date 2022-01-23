@@ -1,0 +1,6 @@
+.footer {
+	@apply w-full p-6 bg-black flex justify-center items-center;
+	.copyright {
+		@apply inline-block text-white text-center italic;
+	}
+}

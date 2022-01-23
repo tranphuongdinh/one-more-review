@@ -1,0 +1,289 @@
+<app-header></app-header>
+
+<div class="film-container">
+  <div class="film xl:p-20 lg:p-10 p-5" *ngIf="this.film">
+    <div class="absolute top-5 right-5 z-20" *ngIf="userInfo?.isAdmin">
+      <button
+        pButton
+        pRipple
+        (click)="onEditFilm()"
+        class="p-button-warning p-button-rounded p-button-outlined"
+      >
+        Cập nhật phim
+      </button>
+
+      <button
+        pButton
+        pRipple
+        (click)="confirmDeleteFilm($event)"
+        class="p-button-outlined p-button-rounded p-button-danger ml-5"
+      >
+        Xóa phim
+      </button>
+    </div>
+    <div class="img-overlay">
+      <img [src]="film?.poster" [alt]="film?.name" />
+    </div>
+    <div class="film__image">
+      <img src="{{ film?.img }}" alt="{{ film?.name }}" />
+    </div>
+    <div class="film__info">
+      <h2 class="film__title">{{ film?.name }}</h2>
+      <div class="mt-5 mb-2">
+        <a [href]="film?.trailer" target="blanc"
+          ><button
+            pButton
+            type="button"
+            label="Trailer"
+            icon="pi pi-play"
+            class="p-button-danger mr-3"
+          ></button
+        ></a>
+      </div>
+      <p-rating
+        [(ngModel)]="film.avgRating"
+        [readonly]="true"
+        [cancel]="false"
+        class="flex justify-start items-center text-3xl"
+      ></p-rating>
+      <p class="film__description text-2xl my-5 text-justify">
+        {{ film?.description }}
+      </p>
+
+      <div class="info-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-xl">
+        <div class="info-group">
+          <span>Thể loại</span>
+          <p>{{ film?.gene }}</p>
+        </div>
+        <div class="info-group">
+          <span>Quốc gia</span>
+          <p>{{ film?.country }}</p>
+        </div>
+        <div class="info-group">
+          <span>Trạng thái</span>
+          <p>{{ film?.status }}</p>
+        </div>
+        <div class="info-group">
+          <span>Đạo diễn</span>
+          <p>{{ film?.directors }}</p>
+        </div>
+        <div class="info-group">
+          <span>Thời lượng</span>
+          <p>{{ film?.duration }} phút</p>
+        </div>
+        <div class="info-group">
+          <span>Năm phát hành</span>
+          <p>{{ film?.year }}</p>
+        </div>
+      </div>
+      <div class="info-group text-xl">
+        <span>Diễn viên</span>
+        <p>{{ film?.actors }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="film-player xl:p-20 lg:p-10 p-5">
+    <iframe [src]="iframeUrl" frameborder="0" allowfullscreen="true"></iframe>
+  </div>
+
+  <div class="reviews xl:p-20 lg:p-10 p-5 bg-gray-900">
+    <h2 class="reviews__title">Đánh giá</h2>
+    <p-carousel
+      *ngIf="reviews.length"
+      [value]="reviews"
+      orientation="horizontal"
+      [autoplayInterval]="0"
+      [circular]="false"
+      [numVisible]="1"
+      [numScroll]="1"
+      styleClass="carousel-container"
+    >
+      <ng-template let-review pTemplate="item" styleClass="carousel-item">
+        <div class="carousel-item-wrapper">
+          <div
+            class="mb-3"
+            *ngIf="review.idUser === userId || userInfo.isAdmin"
+          >
+            <button (click)="confirmDeleteReview($event, review._id)">
+              <span class="pi pi-trash text-red-500"></span>
+            </button>
+
+            <button class="ml-3" (click)="onEditReview(review)">
+              <span class="pi pi-pencil text-blue-500"></span>
+            </button>
+          </div>
+          <div class="flex flex-col sm:flex-row justify-between items-center">
+            <p-rating
+              [(ngModel)]="review.rating"
+              [readonly]="true"
+              [cancel]="false"
+              class="flex justify-start items-center text-3xl"
+            ></p-rating>
+            <span class="text-purple-500">{{ toDateTime(review.createdAt) }}</span>
+          </div>
+          <p class="text-white text-justify mt-3">{{ review?.content }}</p>
+        </div>
+      </ng-template>
+    </p-carousel>
+
+    <div
+      class="
+        reviews__form
+        flex flex-col
+        justify-center
+        items-center
+        w-full
+        mt-5
+      "
+    >
+      <div class="flex justify-center items-center w-full lg:w-1/2 relative mb-5">
+				<span *ngIf="countWords(yourReview) < 50" class="italic text-red-500 text-sm absolute top-3 left-3">*Vui lòng nhập đánh giá có độ dài ít nhất 50 từ</span>
+				      <p-rating
+        [(ngModel)]="reviewScore"
+        [cancel]="false"
+        class="absolute top-3 right-3"
+      ></p-rating>
+        <textarea
+          class="rounded-lg bg-gray-700 text-white w-full h-56 pr-20 pt-10"
+          placeholder="Nhập đánh giá của bạn"
+          id="review-content"
+          [(ngModel)]="yourReview"
+        ></textarea>
+        <button
+          class="text-white absolute right-1"
+          (click)="postReview()"
+        >
+          <i class="pi pi-send text-4xl p-3 ml-3 hover:text-yellow-300 transition-all duration-200"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews xl:p-20 lg:p-10 p-5 bg-gray-900">
+    <h2 class="reviews__title text-white text-4xl py-5">Bình luận</h2>
+    <p-carousel
+      *ngIf="comments.length"
+      [value]="comments"
+      orientation="vertical"
+      [autoplayInterval]="0"
+      [circular]="false"
+      [numVisible]="2"
+      [numScroll]="1"
+      styleClass="carousel-container"
+			[showIndicators]="true"
+    >
+      <ng-template let-comment pTemplate="item" styleClass="carousel-item">
+        <div class="carousel-item-wrapper comment">
+          <div
+            class="mb-1"
+            *ngIf="comment.idUser === userId || userInfo.isAdmin"
+          >
+            <button (click)="confirmDeleteComment($event, comment._id)">
+              <span class="pi pi-trash text-red-500"></span>
+            </button>
+
+            <button class="ml-3" (click)="onEditComment(comment)">
+              <span class="pi pi-pencil text-blue-500"></span>
+            </button>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-right text-purple-500 inline-block w-full">{{ toDateTime(comment.createdAt) }}</span>
+          </div>
+          <p class="text-white mt-3">{{ comment?.content }}</p>
+        </div>
+      </ng-template>
+    </p-carousel>
+
+    <div
+      class="
+        comment__form
+        flex flex-col
+        justify-center
+        items-center
+        w-full
+        py-5
+      "
+    >
+      <div class="relative w-full lg:w-1/2">
+        <input
+          class="rounded-lg bg-gray-700 text-white w-full pr-10"
+          placeholder="Nhập bình luận của bạn"
+          id="comment-content"
+          [(ngModel)]="yourComment"
+          type="text"
+        />
+        <button
+          class="text-white right-2 top-1 absolute"
+          (click)="postComment()"
+        >
+          <i class="far fa-share-square text-2xl hover:text-yellow-200 transition-all duration-200"></i>
+        </button>
+				<span *ngIf="countWords(yourComment) < 1 || !yourComment" class="text-red-500 italic text-sm mt-1">*Vui lòng nhập bình luận có độ dài tối thiểu là 1 từ</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
+<p-confirmPopup></p-confirmPopup>
+
+<p-dialog
+  header="Cập nhật đánh giá"
+  [(visible)]="editReviewDialog"
+  [breakpoints]="{ '960px': '75vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="true"
+  [resizable]="false"
+>
+  <p-rating
+    [(ngModel)]="editReviewScore"
+    value="editReviewScore"
+    [cancel]="false"
+  ></p-rating>
+  	<div class="flex flex-col justify-start items-start w-full">
+		  <textarea type="text" [(ngModel)]="editReviewText" class="w-full rounded bg-gray-800 h-60 mt-3"></textarea>
+			<span *ngIf="countWords(editReviewText) < 50 || !editReviewText" class="text-red-500 italic text-sm mt-1">*Vui lòng nhập đánh giá có độ dài tối thiểu là 50 từ</span>
+	</div>
+  <ng-template pTemplate="footer">
+    <p-button
+      (click)="editReviewDialog = false"
+      label="Hủy"
+      styleClass="p-button-text p-button-danger"
+    ></p-button>
+    <p-button
+      (click)="onEditReviewSubmit()"
+      label="Cập nhật"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  header="Cập nhật bình luận"
+  [(visible)]="editCommentDialog"
+  [breakpoints]="{ '960px': '75vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="true"
+  [resizable]="false"
+>
+
+	<div class="flex flex-col justify-start items-start w-full">
+		  <input type="text" [(ngModel)]="editCommentText"  class="w-full rounded bg-gray-800 mt-3"/>
+			<span *ngIf="countWords(editCommentText) < 1 || !editCommentText" class="text-red-500 italic text-sm mt-1">*Vui lòng nhập bình luận có độ dài tối thiểu là 1 từ</span>
+	</div>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      (click)="editCommentDialog = false"
+      label="Hủy"
+      styleClass="p-button-text p-button-danger"
+    ></p-button>
+    <p-button
+      (click)="onEditCommentSubmit()"
+      label="Cập nhật"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+
