@@ -11,13 +11,15 @@
                 }
             }
             .add-container {
-                @apply bg-gray-800 py-8 ml-10 pl-14;
+                @apply bg-gray-800 py-8 ml-10 pl-8 md:pl-14;
                 h2 {
                     @apply text-3xl;
                 }
                 .info-container {
+									@apply flex flex-wrap justify-start items-center;
                     .block-info {
-                        @apply inline-block mr-4 my-4;
+                        @apply mr-4 my-4 flex flex-col justify-start items-start;
+												min-height: 100px;
                         h4 {
                             @apply mb-1;
                         }
@@ -25,7 +27,7 @@
                             @apply text-gray-900;
                         }
                         .text-error {
-                            @apply text-red-500 italic text-sm mt-1;
+                            @apply text-red-500 italic text-sm mt-1 inline-block;
                         }
                     }
                 }

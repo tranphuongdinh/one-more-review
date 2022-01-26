@@ -10,6 +10,7 @@ import { User } from 'src/app/models/user';
 import { ProfileService } from 'src/app/services/profile.service';
 import { ConfirmationService } from 'primeng/api';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-film',
@@ -48,6 +49,7 @@ export class FilmComponent implements OnInit {
     private reviewService: ReviewService,
     private profileService: ProfileService,
     private confirmationService: ConfirmationService,
+		private userService: UserService,
     private toast: ToastrService
   ) {}
 
@@ -82,11 +84,11 @@ export class FilmComponent implements OnInit {
             this.spinner.show();
             this.commentService.getComment(commentId).subscribe(
               (res) => {
-                this.comments = [...this.comments, res.comment];
+								
+                this.comments = [res.comment, ...this.comments];
                 this.spinner.hide().then();
               },
               (err) => {
-                console.log(err);
                 this.spinner.hide().then();
               }
             );
@@ -96,12 +98,10 @@ export class FilmComponent implements OnInit {
             this.spinner.show();
             this.reviewService.getReview(reviewId).subscribe(
               (res) => {
-                console.log(res);
-                this.reviews = [...this.reviews, res.review];
+                this.reviews = [res.review, ...this.reviews];
                 this.spinner.hide().then();
               },
               (err) => {
-                console.log(err);
                 this.spinner.hide().then();
               }
             );
@@ -109,7 +109,7 @@ export class FilmComponent implements OnInit {
         },
         (err) => {
           this.spinner.hide();
-          this.toast.error(`${'Tải phim thất bại:'} ${err.message}`);
+          this.toast.error(`${'Tải phim thất bại'}`);
           this.router.navigate(['/']);
         }
       );
@@ -171,7 +171,7 @@ export class FilmComponent implements OnInit {
         this.router.navigate(['/']);
       },
       (error) => {
-        this.toast.error(`${'Xóa phim thất bại:'} ${error.message}`);
+        this.toast.error(`${'Xóa phim thất bại'}`);
         this.spinner.hide();
       }
     );
@@ -187,13 +187,13 @@ export class FilmComponent implements OnInit {
       this.spinner.show().then();
       this.commentService.postComment(data).subscribe(
         (res) => {
-          this.comments = [...this.comments, res.comment];
+          this.comments = [res.comment, ...this.comments];
           this.yourComment = '';
           this.toast.success('Đăng bình luận thành công');
           this.spinner.hide().then();
         },
         (err) => {
-          this.toast.error(`${'Đăng bình luận thất bại:'} ${err.message}`);
+          this.toast.error(`${'Đăng bình luận thất bại'}`);
           this.spinner.hide().then();
         }
       );
@@ -211,8 +211,7 @@ export class FilmComponent implements OnInit {
       this.spinner.show().then();
       this.reviewService.postReview(data).subscribe(
         (res) => {
-          console.log(res);
-          this.reviews = [...this.reviews, res.review];
+          this.reviews = [res.review, ...this.reviews];
           this.yourReview = '';
           this.toast.success('Đánh giá phim thành công');
           this.spinner.hide().then();
@@ -235,7 +234,7 @@ export class FilmComponent implements OnInit {
       },
       (err) => {
         this.spinner.hide().then();
-        this.toast.error(`${'Xóa đánh giá thất bại:'} ${err.message}`);
+        this.toast.error(`${'Xóa đánh giá thất bại'}`);
       }
     );
   }
@@ -244,14 +243,12 @@ export class FilmComponent implements OnInit {
     this.spinner.show().then();
     this.commentService.deleteComment(commentId).subscribe(
       (res) => {
-        console.log(res);
         this.comments = this.comments.filter(
           (comment) => comment._id !== commentId
         );
         this.spinner.hide().then();
       },
       (err) => {
-        console.log(err);
         this.spinner.hide().then();
       }
     );
@@ -281,7 +278,7 @@ export class FilmComponent implements OnInit {
           },
           (err) => {
             this.editReviewDialog = false;
-            this.toast.error(`${'Cập nhật đánh giá thất bại:'} ${err.message}`);
+            this.toast.error(`${'Cập nhật đánh giá thất bại'}`);
           }
         );
     }

@@ -78,7 +78,6 @@ export class ForgotPasswordComponent implements OnInit {
     }
     const getValue = this.resetPasswordForm.getRawValue();
     const data = { password: getValue.password, confirmPassword: getValue.confirmPassword };
-    console.log(data);
   }
 
   onConfirmEmailSubmit(): void {
@@ -89,7 +88,6 @@ export class ForgotPasswordComponent implements OnInit {
     }
     const getValue = this.confirmEmailForm.getRawValue();
     const data = { digitCode: getValue.digitCode };
-    console.log(data);
   }
 
   togglePoster(): void {

@@ -12,50 +12,74 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
-  constructor(private spinner: NgxSpinnerService,   private formBuilder: FormBuilder,  private toast: ToastrService,
-    private userService: UserService)
-  { }
+  constructor(
+    private spinner: NgxSpinnerService,
+    private formBuilder: FormBuilder,
+    private toast: ToastrService,
+    private userService: UserService
+  ) {}
   editStatus: boolean = false;
   user!: any;
   id!: any;
-  edit_age!: string;
+  edit_age!: number;
   edit_country!: string;
   edit_gender!: boolean;
   edit_name!: string;
-  
+  edit_image!: string;
+
   ngOnInit(): void {
     this.id = localStorage.getItem('USER_ID');
     this.userService.getUser(this.id).subscribe((res) => {
       this.user = res.user;
-			this.spinner.hide().then();
+      this.edit_age = this.user.age;
+      this.edit_country = this.user.country;
+      this.edit_gender = this.user.gender;
+      this.edit_name = this.user.name;
+      this.edit_image = this.user.image;
+      this.spinner.hide().then();
     });
   }
 
-  onEditProfile(): void{
+  onEditProfile(): void {
     this.editStatus = !this.editStatus;
   }
 
-  onSubmit(event:any): void {
+  onSubmit(event: any): void {
     event.preventDefault();
 
-    this.user.age = parseInt(this.edit_age) || this.user.age;
-    this.user.country = this.edit_country || this.user.country;
-    this.user.name = this.edit_name || this.user.name;
-    this.user.gender = this.edit_gender || this.user.gender;
-    console.log(this.user);
-    
-    this.spinner.show();
-    this.userService.updateUser(this.user, this.id).subscribe(
-      (res : any) => {
-      this.toast.success('Cập nhật profile thành công');
-			this.user = res.user;
-      this.spinner.hide();
-    },
-    (error) => {
-      this.toast.error(`${'Cập nhật profile thất bại:'} ${error.message}`);
-    });
-    this.editStatus = !this.editStatus;
-    this.spinner.hide();
+    if (
+      this.edit_age ||
+      this.edit_country ||
+      this.edit_gender ||
+      this.edit_name ||
+      this.edit_image
+    ) {
+      const data = {
+        age: this.edit_age || this.user.age,
+        country: this.edit_country || this.user.country,
+        name: this.edit_name || this.user.name,
+        gender: this.edit_gender || this.user.gender,
+        image: this.edit_image || this.user.image,
+      };
 
-}
+      this.userService.updateUser(data, this.id).subscribe(
+        (res: any) => {
+          this.toast.success('Cập nhật profile thành công');
+          this.user = res.user;
+					this.editStatus = !this.editStatus;
+          this.spinner.hide();
+
+        },
+        (error) => {
+          this.toast.error(`${'Có lỗi xảy ra'}`);
+					this.editStatus = !this.editStatus;
+          this.spinner.hide();
+        }
+      );
+    }
+  }
+
+  onCancel(): void {
+    this.editStatus = !this.editStatus;
+  }
 }

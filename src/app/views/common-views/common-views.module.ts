@@ -28,6 +28,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DialogModule } from 'primeng/dialog';
+import { PasswordModule } from 'primeng/password';
 @NgModule({
   declarations: [
     PageNotFoundComponent,
@@ -58,7 +59,8 @@ import { DialogModule } from 'primeng/dialog';
 		SkeletonModule,
 		ToolbarModule,
 		ConfirmPopupModule,
-		DialogModule
+		DialogModule,
+		PasswordModule,
   ],
 })
 export class CommonViewsModule {}

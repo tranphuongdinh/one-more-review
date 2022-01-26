@@ -98,8 +98,9 @@
       [numVisible]="1"
       [numScroll]="1"
       styleClass="carousel-container"
+			[showIndicators]="true"
     >
-      <ng-template let-review pTemplate="item" styleClass="carousel-item">
+      <ng-template *ngFor="let review of reviews; index as i" pTemplate="item" styleClass="carousel-item">
         <div class="carousel-item-wrapper">
           <div
             class="mb-3"
@@ -126,7 +127,6 @@
         </div>
       </ng-template>
     </p-carousel>
-
     <div
       class="
         reviews__form
@@ -138,20 +138,22 @@
       "
     >
       <div class="flex justify-center items-center w-full lg:w-1/2 relative mb-5">
-				<span *ngIf="countWords(yourReview) < 50" class="italic text-red-500 text-sm absolute top-3 left-3">*Vui lòng nhập đánh giá có độ dài ít nhất 50 từ</span>
+				<span *ngIf="countWords(yourReview) < 50" class="italic text-red-500 text-sm absolute bottom-3 left-3">*Vui lòng nhập đánh giá có độ dài ít nhất 50 từ</span>
 				      <p-rating
         [(ngModel)]="reviewScore"
         [cancel]="false"
-        class="absolute top-3 right-3"
+        class="absolute top-3 right-7"
       ></p-rating>
         <textarea
           class="rounded-lg bg-gray-700 text-white w-full h-56 pr-20 pt-10"
           placeholder="Nhập đánh giá của bạn"
           id="review-content"
           [(ngModel)]="yourReview"
+					[maxlength]="1500"
         ></textarea>
+				<span class="text-purple-500 absolute top-3 left-3">{{yourReview.length}}/1500</span>
         <button
-          class="text-white absolute right-1"
+          class="text-white absolute right-5"
           (click)="postReview()"
         >
           <i class="pi pi-send text-4xl p-3 ml-3 hover:text-yellow-300 transition-all duration-200"></i>
@@ -186,6 +188,8 @@
             <button class="ml-3" (click)="onEditComment(comment)">
               <span class="pi pi-pencil text-blue-500"></span>
             </button>
+
+						<span class="text-white">{{comment.i}}</span>
           </div>
           <div class="flex justify-between items-center">
             <span class="text-right text-purple-500 inline-block w-full">{{ toDateTime(comment.createdAt) }}</span>
@@ -207,11 +211,12 @@
     >
       <div class="relative w-full lg:w-1/2">
         <input
-          class="rounded-lg bg-gray-700 text-white w-full pr-10"
+          class="rounded-lg bg-gray-700 text-white w-full pr-28"
           placeholder="Nhập bình luận của bạn"
           id="comment-content"
           [(ngModel)]="yourComment"
           type="text"
+					maxlength="100"
         />
         <button
           class="text-white right-2 top-1 absolute"
@@ -219,6 +224,7 @@
         >
           <i class="far fa-share-square text-2xl hover:text-yellow-200 transition-all duration-200"></i>
         </button>
+				<span class="text-purple-500 absolute right-12 top-2">{{yourComment.length}}/100</span>
 				<span *ngIf="countWords(yourComment) < 1 || !yourComment" class="text-red-500 italic text-sm mt-1">*Vui lòng nhập bình luận có độ dài tối thiểu là 1 từ</span>
       </div>
     </div>

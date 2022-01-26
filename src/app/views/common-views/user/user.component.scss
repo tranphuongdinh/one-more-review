@@ -1,87 +1,103 @@
 @import "../../../../variables";
 .user {
-    &-container {
-        @apply w-full min-h-screen text-white bg-gray-900;
+  &-container {
+    @apply w-full min-h-screen text-white bg-gray-900;
+  }
+  .infor-container {
+    @apply pb-12 md:mx-10 mx-4;
+    .user-profile {
+      @apply block w-full h-auto md:p-12 p-4;
+      .avatar {
+        @apply block mx-auto w-64 h-64 rounded-full object-cover;
+      }
+      h3 {
+        @apply block text-center text-4xl mt-8;
+      }
+      h4 {
+        @apply block text-center text-2xl mt-2;
+      }
     }
-    .infor-container {
-        @apply pb-12;
-        .user-profile {
-            @apply block w-full h-auto p-12;
-            .avatar {
-                @apply block mx-auto w-72 h-72 rounded-full;
-            }
-            h3 {
-                @apply block text-center text-4xl mt-8;
-            }
-            h4 {
-                @apply block text-center text-2xl mt-2;
-            }
+    .detail-info {
+      @apply bg-gray-800 pt-4 flex flex-wrap
+					 justify-center items-center mx-auto;
+      max-width: 1000px;
+      .fa-edit {
+        @apply flex ml-2 pl-4 cursor-pointer text-3xl hover:text-yellow-400 transition-all duration-200;
+      }
+      .info {
+        @apply text-center;
+        .block-info {
+          @apply bg-gray-600 text-center inline-block p-6 m-4 w-48 h-32 rounded-xl mb-10 align-bottom;
+          @media (max-width: 768px) {
+            @apply my-6;
+          }
+          @media (max-width: 576px) {
+            @apply my-5;
+          }
+          background: $gradient-block-info;
+          background-size: 300%;
+          &:hover {
+            background-position: 50%;
+            @apply shadow-2xl;
+          }
+          p {
+            @apply p-4 text-center text-xl font-bold;
+          }
+          h4 {
+            @apply text-base;
+          }
         }
-        .detail-info {
-            @apply bg-gray-800 mr-14 ml-14 h-56 pt-4 object-center content-center;
-            .fa-edit {
-                @apply flex ml-2 pl-4 cursor-pointer;
-            }
-            .info {
-                @apply text-center;
-                .block-info {
-                    @apply bg-gray-600 text-center inline-block p-6 m-4 w-48 h-32 rounded-xl mb-10 align-bottom;
-                    @media (max-width: 768px) {
-                        @apply my-6;
-                    }
-                    @media (max-width: 576px) {
-                        @apply my-5;
-                    }
-                    background: $gradient-block-info;
-                    background-size: 300%;
-                    &:hover {
-                        background-position: 50%;
-                        @apply shadow-2xl;
-                    }
-                    p {
-                        @apply p-4 text-center text-xl font-bold;
-                    }
-                    h4 {
-                        @apply text-base;
-                    }
-                }
-            }
-        }
+      }
     }
-    .edit-container {
-        @apply pb-20;
-        .user-edit {
-            @apply block w-full h-auto p-12 text-white;
-            .avatar {
-                @apply block mx-auto w-72 h-72 rounded-full;
-            }
-            h4 {
-                @apply block text-center text-2xl mt-2;
-            }
-            .input {
-                @apply w-full inline-block align-middle bg-gray-900 font-bold text-center text-4xl mt-2;
-            }
-        }
-        .detail-edit {
-            @apply bg-gray-800 mx-14 h-56 pt-4 object-center content-center text-center;
-            .block-edit {
-                @apply bg-gray-600 text-center inline-block mx-4 my-8 py-4 w-48 h-32 rounded-xl align-bottom;
-                h4 {
-                    @apply text-base;
-                }
-                .input {
-                    @apply mt-4 p-4 text-center text-xl font-bold bg-gray-600 h-6 py-2 w-32 border-none;
-                }
-                .radio-form {
-                    @apply text-lg py-1;
-                    .radio {
-                        @apply mr-2;
-                    }
-                }
-            }
-        }
-        .btn {
-            @apply my-4 absolute right-14;
-        }
+  }
+  .edit-container {
+    @apply pb-12 mx-10;
+    .user-edit {
+      @apply w-full h-auto p-12 text-white flex flex-col justify-center items-center;
+      .avatar {
+        @apply block mx-auto w-64 h-64 rounded-full object-cover;
+      }
+			.edit-image {
+				@apply flex justify-center items-center w-full;
+				.label {
+					@apply inline-block mr-3;
+				}
+				.image-input {
+					@apply w-full inline-block font-bold text-center text-xl my-6 rounded-md bg-gray-900;
+					max-width: 300px;
+				}
+			}
+      h4 {
+        @apply block text-center text-2xl mt-2;
+      }
+      .input {
+        @apply w-full inline-block align-middle bg-gray-900 font-bold text-center text-4xl my-3 rounded-md;
+        max-width: 1000px;
+      }
     }
+    .detail-edit {
+      @apply bg-gray-800 p-4 md:px-8 flex flex-wrap
+					 justify-center items-center mx-auto;
+      max-width: 1000px;
+      max-width: 1000px;
+      .block-edit {
+        @apply bg-gray-600 text-center inline-block m-4 py-4 w-48 h-32 rounded-xl align-bottom;
+        h4 {
+          @apply text-base;
+        }
+        .input {
+          @apply mt-4 p-4 text-center text-xl font-bold bg-gray-600 h-6 py-2 w-32 border-none outline-none rounded-md;
+        }
+        .radio-form {
+          @apply text-lg py-1;
+          .radio {
+            @apply mr-2;
+          }
+        }
+      }
+    }
+    .btn {
+      @apply my-4 absolute right-14;
+    }
+  }
 }

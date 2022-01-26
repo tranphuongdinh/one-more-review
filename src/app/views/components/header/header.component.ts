@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit {
       },
       (err) => {
         this.spinner.hide();
-        this.toast.error('CÓ LỖI KHI KẾT NỐI ĐẾN SERVER');
+        this.toast.error('Có lỗi khi kết nối đến server');
       }
     );
 
@@ -93,6 +93,10 @@ export class HeaderComponent implements OnInit {
       })
     );
   }
+
+	onNavigateProfile() {
+		this.router.navigate(['/profile']);
+	}
 
   onType(event: any) {
     if (event.key === 'Enter' && this.searchName) {

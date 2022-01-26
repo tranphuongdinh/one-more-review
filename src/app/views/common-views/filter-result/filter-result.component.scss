@@ -30,27 +30,28 @@
 			@apply text-4xl font-semibold text-white my-3;
 		}
  		.list-container {
-        @apply flex justify-center items-center w-full flex-wrap;
+        @apply flex justify-center items-start w-full flex-wrap;
 
 				.film-item {
-					@apply shadow-2xl rounded-lg pb-1 cursor-pointer transition-transform duration-300 bg-gray-700 mx-0 md:mx-10 my-4 md:my-8;
-					width: 350px;
+					@apply shadow-2xl rounded-lg pb-1 cursor-pointer transition-transform duration-300 bg-gray-700 mx-4 md:mx-8 my-4 md:my-8;
+					width: 300px;
 					@media (max-width: 400px) {
-						width: 100%;
-						min-height: 450px;
+						min-height: 400px;
+						width: 275px;
 					}
-					min-height: 550px;
+					min-height: 500px;
 					&:hover {
 						@apply -translate-y-3;
 					}
 					img {
 						@apply rounded-t-xl w-full;
-						height: 475px;
+						height: 425px;
 					}
 					h3 {
 						@apply text-center text-lg font-semibold p-4 text-white uppercase;
 					}
 				}
+				
       }
   }
 }

@@ -46,7 +46,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     this.filmService.getAllFilms().subscribe(
       (res) => {
         if (res) {
-          this.allFilms = res.films;
+          this.allFilms = res.films.reverse();
           this.carouselItems = res.films;
           this.allPage =
             Math.floor(this.allFilms.length / this.filmPerPage) + 1;
@@ -56,7 +56,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
       },
       (err) => {
         this.spinner.hide();
-        this.toast.error('ERROR LOADING DATA FROM SERVER');
+        this.toast.error('Có lỗi khi kết nối đến server');
       }
     );
   }
@@ -96,7 +96,6 @@ export class HomePageComponent implements OnInit, AfterViewInit {
         this.page * this.filmPerPage,
         this.page * this.filmPerPage + this.filmPerPage
       );
-      console.log(this.films);
     }
   }
 }

@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { ApiService } from 'src/app/services/api.service';
 @Component({
   selector: 'app-add-admin',
   templateUrl: './add-admin.component.html',
@@ -12,12 +13,13 @@ import { ToastrService } from 'ngx-toastr';
 export class AddAdminComponent implements OnInit {
   name: string = '';
   email: string = '';
-  id: string = '';
+  password: string = '';
   user!: User;
   isSubmitted: boolean = false;
   constructor(
     private spinner: NgxSpinnerService,
     private userService: UserService,
+		private apiService: ApiService,
     private toast: ToastrService,
     private router: Router
   ) {}
@@ -32,25 +34,25 @@ export class AddAdminComponent implements OnInit {
 
   onSubmit(event: any): void {
     event.preventDefault();
+    this.isSubmitted = true;
+    if (this.name && this.email && this.password) {
+			this.spinner.show().then();
+      const data = {
+        password: this.password,
+        name: this.name,
+        isAdmin: true,
+        username: this.email,
+      };
 
-    if (this.name && this.email && this.id) {
-      this.isSubmitted = true;
-      this.userService.getUser(this.id).subscribe((res) => {
-        this.user = res.user;
-      });
-      this.user.isAdmin = true;
-
-      this.spinner.show();
-      this.userService.updateUser(this.user, this.id).subscribe(
-        (data: any) => {
-          this.toast.success('Thêm admin thành công');
-          this.spinner.hide();
-        },
-        (error) => {
-          this.toast.error(`${'Thêm admin thất bại:'} ${error.message}`);
-        }
-      );
-      console.log(this.user);
+			this.apiService.signUp(data).subscribe( res => {
+				if (res) {
+					this.toast.success('Thêm admin thành công');
+					this.spinner.hide().then();
+				}
+			}, err => {
+				this.toast.error("Có lỗi xảy ra hoặc tài khoản admin đã tồn tại");
+				this.spinner.hide().then();
+			})
     }
   }
 
@@ -58,7 +60,7 @@ export class AddAdminComponent implements OnInit {
     this.isSubmitted = false;
     this.name = '';
     this.email = '';
-    this.id = '';
+    this.password = '';
   }
   length(value: string): number {
     return value?.trim().length;

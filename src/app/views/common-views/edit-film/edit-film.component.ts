@@ -87,12 +87,10 @@ export class EditFilmComponent implements OnInit {
           this.url = this.film.url;
           this.avgRating = this.film.avgRating;
 
-          console.log(this.avgRating);
-
           this.spinner.hide();
         },
         (error) => {
-          this.toast.error(error.message);
+          this.toast.error("Có lỗi xảy ra");
           this.spinner.hide();
         }
       );
@@ -113,7 +111,7 @@ export class EditFilmComponent implements OnInit {
             this.router.navigate(['/']);
           },
           (error) => {
-            this.toast.error(`${'Xóa phim thất bại:'} ${error.message}`);
+            this.toast.error(`${'Xóa phim thất bại'}`);
             this.spinner.hide();
           }
         );
@@ -153,9 +151,10 @@ export class EditFilmComponent implements OnInit {
         (data: any) => {
           this.toast.success('Cập nhật phim thành công');
           this.spinner.hide();
+					this.router.navigate(['/films', this.film._id]);
         },
         (error) => {
-          this.toast.error(`${'Cập nhật phim thất bại:'} ${error.message}`);
+          this.toast.error(`${'Cập nhật phim thất bại'}`);
         }
       );
     }

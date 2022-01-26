@@ -65,7 +65,7 @@ export class FilterResultComponent implements OnInit, AfterViewInit {
     this.spinner.show();
     this.filmService.getAllFilms().subscribe(
       (res) => {
-        this.allFilms = res.films;
+        this.allFilms = res.films.reverse();
         if (this.selectedName) {
           this.allFilms = this.allFilms.filter((film: Movie) => {
             return (
@@ -153,7 +153,6 @@ export class FilterResultComponent implements OnInit, AfterViewInit {
         this.page * this.filmPerPage,
         this.page * this.filmPerPage + this.filmPerPage
       );
-      console.log(this.films);
     }
   }
 

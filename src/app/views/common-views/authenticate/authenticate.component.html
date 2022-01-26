@@ -1,5 +1,8 @@
 <div class="auth-container">
-  <div class="main-container" [ngClass]="{'sign-in': isSignIn, 'sign-up': !isSignIn}">
+  <div
+    class="main-container"
+    [ngClass]="{ 'sign-in': isSignIn, 'sign-up': !isSignIn }"
+  >
     <img
       src="../../../../assets/imgs/auth-poster.jpg"
       alt="Poster"
@@ -23,7 +26,9 @@
               *ngIf="signUpSubmitted && fr.email.errors"
               class="invalid-feedback"
             >
-              <div *ngIf="fr.email.errors.required">*Trường này là bắt buộc</div>
+              <div *ngIf="fr.email.errors.required">
+                *Trường này là bắt buộc
+              </div>
               <div *ngIf="fr.email.errors.email">*Email không hợp lệ</div>
             </div>
           </div>
@@ -79,6 +84,11 @@
 
           <button class="btn-submit" type="submit">Đăng kí</button>
         </form>
+        <img
+          src="../../../../assets/imgs/auth-poster.jpg"
+          alt="Poster"
+          class="mini-poster"
+        />
       </div>
     </div>
 
@@ -101,7 +111,9 @@
               *ngIf="signInSubmitted && fl.email.errors"
               class="invalid-feedback"
             >
-              <div *ngIf="fl.email.errors.required">*Trường này là bắt buộc</div>
+              <div *ngIf="fl.email.errors.required">
+                *Trường này là bắt buộc
+              </div>
               <div *ngIf="fl.email.errors.email">*Email không hợp lệ</div>
             </div>
           </div>
@@ -130,7 +142,13 @@
 
           <a
             (click)="onResetPassword()"
-            class="label-input forgot-password text-right hover:underline cursor-pointer"
+            class="
+              label-input
+              forgot-password
+              text-right
+              hover:underline
+              cursor-pointer
+            "
           >
             Quên mật khẩu?
           </a>
@@ -142,6 +160,11 @@
             <a (click)="togglePoster()"> Đăng kí ngay </a>
           </div>
         </form>
+        <img
+          src="../../../../assets/imgs/auth-poster.jpg"
+          alt="Poster"
+          class="mini-poster"
+        />
       </div>
     </div>
   </div>

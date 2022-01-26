@@ -1,65 +1,144 @@
 <div class="user">
-    <app-header></app-header>
-    <div class="user-container">
-        <div class="infor-container" *ngIf="editStatus==false">
-            <div class="user-profile">
-                <img alt={{user?.name}} [src]="(user && user?.image==false)? user?.image: 'https://anhdep123.com/wp-content/uploads/2020/05/h%C3%ACnh-v%E1%BA%BD-m%C3%A8o-cute.jpg'" class="avatar">
-                <h3>{{user?.name}}</h3>
-                <h4>{{user?.username}}</h4>
-            </div>
-            <div class="detail-info">
-                <i class="far fa-edit" (click)="onEditProfile()"></i>
-                <div class="info">
-                    <div class="block-info">
-                        <h4>Country:</h4>
-                        <p>{{user?.country}}</p>
-                    </div>
-                    <div class="block-info">
-                        <h4>Gender:</h4>
-                        <p *ngIf="user?.gender">Female</p>
-                        <p *ngIf="user?.gender==false">Male</p>
-                    </div>
-                    <div class="block-info">
-                        <h4>Age:</h4>
-                        <p>{{user?.age}}</p>
-                    </div>
-                </div>
-            </div>
+  <app-header></app-header>
+  <div class="user-container">
+    <div class="infor-container" *ngIf="editStatus == false">
+      <div class="user-profile">
+        <img
+          alt="{{ user?.name }}"
+          [src]="
+            user?.image || 'https://www.pngitem.com/pimgs/m/294-2947257_interface-icons-user-avatar-profile-user-avatar-png.png'
+          "
+          class="avatar"
+        />
+        <h3>{{ user?.name }}</h3>
+        <h4>{{ user?.username }}</h4>
+      </div>
+      <div class="detail-info">
+        <i class="far fa-edit" (click)="onEditProfile()"></i>
+        <div class="info">
+          <div class="block-info">
+            <h4>Country:</h4>
+            <p>{{ user?.country }}</p>
+          </div>
+          <div class="block-info">
+            <h4>Gender:</h4>
+            <p *ngIf="user?.gender">Female</p>
+            <p *ngIf="user?.gender == false">Male</p>
+          </div>
+          <div class="block-info">
+            <h4>Age:</h4>
+            <p>{{ user?.age }}</p>
+          </div>
         </div>
-        <div *ngIf="editStatus" class="edit-container">
-            <form (submit)="onSubmit($event)">
-                <div class="user-edit">
-                    <img alt={{user?.name}} [src]="(user && user?.image==false) ? user?.image: 'https://anhdep123.com/wp-content/uploads/2020/05/h%C3%ACnh-v%E1%BA%BD-m%C3%A8o-cute.jpg'" class="avatar">
-                    <input class="input " type="text" name="name" [(ngModel)]="edit_name" name="edit_name" placeholder={{user?.name}}/>
-                    <h4>{{user?.username}}</h4>
-                </div>
-                <div class="detail-edit">
-                    <div class="block-edit">
-                        <h4>Country:</h4>
-                        <input type="text" class="input" placeholder={{user?.country}} [(ngModel)]="edit_country" name="edit_country" />
-                    </div>
-                    <div class="block-edit">
-                        <h4>Gender:</h4>
-                        <form>
-                            <div class="radio-form">
-                                <input class="radio" type="radio" value="true" [(ngModel)]="edit_gender" name="edit_gender" />
-                                <label>Female</label>
-                            </div>
-                            <div class="radio-form">
-                                <input class="radio" type="radio" value="false" [(ngModel)]="edit_gender" name="edit_gender" />
-                                <label>Male</label>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="block-edit ">
-                        <h4>Age:</h4>
-                        <input type="text" class="input" placeholder={{user?.age}} [(ngModel)]="edit_age" name="edit_age" />
-                    </div>
-                </div>
-                <button pButton pRipple type="submit" class="btn p-button-primary p-button-rounded p-button-outlined">Save</button>
-            </form>
-        </div>
-
+      </div>
     </div>
-    <app-footer></app-footer>
+    <div *ngIf="editStatus" class="edit-container">
+      <form (submit)="onSubmit($event)">
+        <div class="user-edit">
+          <img alt="{{ user?.name }}" [src]="edit_image || 'https://www.pngitem.com/pimgs/m/294-2947257_interface-icons-user-avatar-profile-user-avatar-png.png'" class="avatar" />
+          <div class="edit-image">
+            <span class="label">Image URL:</span>
+            <input
+              class="image-input"
+              type="text"
+              name="image"
+              [(ngModel)]="edit_image"
+              name="edit_image"
+              placeholder="{{ user?.image }}"
+            />
+          </div>
+
+          <input
+            class="input"
+            type="text"
+            name="name"
+            [(ngModel)]="edit_name"
+            name="edit_name"
+            placeholder="{{ user?.name }}"
+          />
+          <h4>{{ user?.username }}</h4>
+        </div>
+        <div class="detail-edit">
+          <div class="block-edit">
+            <h4>Country:</h4>
+            <input
+              type="text"
+              class="input"
+              placeholder="{{ user?.country }}"
+              [(ngModel)]="edit_country"
+              name="edit_country"
+            />
+          </div>
+          <div class="block-edit">
+            <h4>Gender:</h4>
+            <form>
+              <div class="radio-form">
+                <input
+                  class="radio"
+                  type="radio"
+                  value="true"
+                  [(ngModel)]="edit_gender"
+                  name="edit_gender"
+                  [checked]="edit_gender"
+                />
+                <label>Female</label>
+              </div>
+              <div class="radio-form">
+                <input
+                  class="radio"
+                  type="radio"
+                  value="false"
+                  [(ngModel)]="edit_gender"
+                  name="edit_gender"
+                  [checked]="edit_gender"
+                />
+                <label>Male</label>
+              </div>
+            </form>
+          </div>
+          <div class="block-edit">
+            <h4>Age:</h4>
+            <input
+              type="number"
+              min="1"
+              class="input"
+              placeholder="{{ user?.age }}"
+              [(ngModel)]="edit_age"
+              name="edit_age"
+            />
+          </div>
+          <div
+            class="
+              button-group
+              w-full
+              my-4
+              justify-center
+              md:justify-end
+              flex
+              items-center
+            "
+          >
+            <button
+              (click)="onCancel()"
+              class="
+                p-button p-button-warning p-button-rounded p-button-outlined
+              "
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="
+                p-button p-button-primary p-button-rounded p-button-outlined
+                ml-6
+              "
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <app-footer></app-footer>
 </div>

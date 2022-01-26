@@ -17,9 +17,9 @@
     &__image {
       @apply mr-0 z-10 xl:mr-20;
       min-width: 400px;
-			@media (max-width: 450px) {
-				min-width: 100%;
-			}
+      @media (max-width: 450px) {
+        min-width: 100%;
+      }
       max-width: 400px;
       img {
         @apply w-full h-full rounded;
@@ -55,9 +55,13 @@
       @apply w-full rounded-lg;
       max-width: 1300px;
       min-height: 650px;
-			@media (max-width: 768px) {
-				min-height: 400px;
-			}
+      @media (max-width: 768px) {
+        min-height: 400px;
+      }
+
+      @media (max-width: 476px) {
+        min-height: 300px;
+      }
     }
   }
 

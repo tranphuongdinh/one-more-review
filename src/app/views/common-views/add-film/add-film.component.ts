@@ -83,6 +83,7 @@ export class AddFilmComponent implements OnInit {
       this.filmService.postFilm(item).subscribe(
         (data: any) => {
           this.toast.success('Thêm phim thành công');
+					this.onReset();
         },
         (error) => {
           this.toast.error('Thêm phim thất bại');

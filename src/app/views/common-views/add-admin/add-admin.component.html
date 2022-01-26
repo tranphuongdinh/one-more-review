@@ -1,43 +1,73 @@
 <app-header></app-header>
 
 <div class="add-admin">
-    <div class="add-admin-container">
-        <div class="title">
-            <h1>Thêm admin mới</h1>
-            <h3>Thêm một admin mới để quản lý các phim và người dùng.</h3>
-        </div>
-
-        <div class="add-container">
-            <h2>New admin</h2><br>
-            <form (submit)="onSubmit($event)">
-                <div class="info-container">
-                    <div class="block-info">
-                        <h4>Tên admin:</h4>
-                        <input class="input" type="text" placeholder="Nobita..." name="name" [(ngModel)]="name" required><br><span *ngIf="length(name) < 1 && isSubmitted" class="text-error">*Trường này là bắt buộc</span
-                            >
-                    </div>
-                    <div class="block-info">
-                        <h4>Email:</h4>
-                        <input class="input" type="email" placeholder="abc@gmail.com" name="email" [(ngModel)]="email" required><br>
-                        <span *ngIf="length(email) < 1 && isSubmitted" class="text-error">*Trường này là bắt buộc
-                            </span>
-                    </div>
-                    <div class="block-info">
-                        <h4>ID:</h4>
-                        <input class="input" type="text" placeholder="ID..." name="id" [(ngModel)]="id" required> <br><span *ngIf="length(id) < 1 && isSubmitted" class="text-error">*Trường này là bắt buộc</span
-                      >
-                    </div>
-                </div>
-                <div class="btn-container">
-                    <button (click)="onCancel()" pButton pRipple type="button" class="p-button-outlined p-button-warning p-button-rounded">Cancel</button>
-                    <button pButton pRipple type="submit" class="p-button-primary p-button-rounded p-button-outlined">Save</button>
-                </div>
-            </form>
-        </div>
-
-
+  <div class="add-admin-container">
+    <div class="title">
+      <h1>Thêm admin mới</h1>
+      <h3>Thêm một admin mới để quản lý các phim và người dùng.</h3>
     </div>
+
+    <div class="add-container">
+      <h2>New admin</h2>
+      <br />
+      <form (submit)="onSubmit($event)">
+        <div class="info-container">
+          <div class="block-info">
+            <h4>Tên admin:</h4>
+            <input
+              class="input"
+              type="text"
+              placeholder="Nobita..."
+              name="name"
+              [(ngModel)]="name"
+              required
+            /><span *ngIf="length(name) < 1 && isSubmitted" class="text-error"
+              >*Trường này là bắt buộc</span
+            >
+          </div>
+          <div class="block-info">
+            <h4>Email:</h4>
+            <input
+              class="input"
+              type="email"
+              placeholder="abc@gmail.com"
+              name="email"
+              [(ngModel)]="email"
+              required
+            />
+            <span *ngIf="length(email) < 1 && isSubmitted" class="text-error"
+              >*Trường này là bắt buộc
+            </span>
+          </div>
+          <div class="block-info">
+            <h4>Mật khẩu:</h4>
+            <p-password [(ngModel)]="password" [toggleMask]="true" name="password"></p-password>
+            <span *ngIf="length(password) < 6 && isSubmitted" class="text-error"
+              >*Độ dài mật khẩu tối thiểu 6 kí tự
+            </span>
+          </div>
+        </div>
+        <div class="btn-container">
+          <button
+            (click)="onCancel()"
+            pButton
+            pRipple
+            type="button"
+            class="p-button-outlined p-button-warning p-button-rounded"
+          >
+            Cancel
+          </button>
+          <button
+            pButton
+            pRipple
+            type="submit"
+            class="p-button-primary p-button-rounded p-button-outlined"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 <app-footer></app-footer>
-
-

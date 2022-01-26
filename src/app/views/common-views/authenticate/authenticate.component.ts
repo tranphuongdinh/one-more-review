@@ -95,13 +95,12 @@ export class AuthenticateComponent implements OnInit {
       },
       (err) => {
         this.spinner.hide();
-				console.log(this.signUpForm);
         if (err && err.error && err.error.message && err.error.message !== '') {
           this.signUpNotification = err.error.message;
         } else {
           this.signUpNotification = 'Error';
         }
-				this.toast.error(this.signUpNotification.toUpperCase());
+				this.toast.error("Đăng kí không thành công: " + this.signUpNotification);
 				this.signUpSubmitted = false;
       }
     );
@@ -136,7 +135,9 @@ export class AuthenticateComponent implements OnInit {
         } else {
           this.signInNotification = 'Error';
         }
-        this.toast.error(this.signInNotification.toUpperCase());
+        this.toast.error(
+          'Đăng nhập không thành công: ' + this.signInNotification
+        );
 				this.signInSubmitted = false;
       }
     );
