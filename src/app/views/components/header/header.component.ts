@@ -33,38 +33,40 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     const id = localStorage.getItem('USER_ID') || '';
-    this.profileService.getProfile(id).subscribe(
-      (res) => {
-        if (res) {
-          this.userInfo = res.user;
+    if (id) {
+      this.profileService.getProfile(id).subscribe(
+        (res) => {
+          if (res) {
+            this.userInfo = res.user;
 
-          if (this.userInfo.isAdmin) {
+            if (this.userInfo.isAdmin) {
+              this.items.push({
+                label: 'Thêm phim',
+                icon: 'pi pi-video',
+                url: '/add-film',
+              });
+              this.items.push({
+                label: 'Thêm admin',
+                icon: 'pi pi-user-plus',
+                url: '/add-admin',
+              });
+            }
+
             this.items.push({
-              label: 'Thêm phim',
-              icon: 'pi pi-video',
-              url: '/add-film',
-            });
-            this.items.push({
-              label: 'Thêm admin',
-              icon: 'pi pi-user-plus',
-              url: '/add-admin',
+              label: 'Đăng xuất',
+              icon: 'pi pi-sign-out',
+              command: () => {
+                this.authService.signOut();
+              },
             });
           }
-
-					this.items.push({
-            label: 'Đăng xuất',
-            icon: 'pi pi-sign-out',
-            command: () => {
-              this.authService.signOut();
-            },
-          });
+        },
+        (err) => {
+          this.spinner.hide();
+          this.toast.error('Có lỗi khi kết nối đến server');
         }
-      },
-      (err) => {
-        this.spinner.hide();
-        this.toast.error('Có lỗi khi kết nối đến server');
-      }
-    );
+      );
+    }
 
     this.items = [
       {
@@ -94,9 +96,9 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-	onNavigateProfile() {
-		this.router.navigate(['/profile']);
-	}
+  onNavigateProfile() {
+    this.router.navigate(['/profile']);
+  }
 
   onType(event: any) {
     if (event.key === 'Enter' && this.searchName) {

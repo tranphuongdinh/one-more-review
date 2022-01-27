@@ -5,7 +5,7 @@
 			<h1>ONE MORE REVIEW</h1>
     </a>
 
-    <div class="flex justify-end items-center flex-wrap">
+    <div class="flex justify-end items-center flex-wrap" *ngIf="userInfo">
       <span class="p-input-icon-right search relative">
         <input type="text" pInputText placeholder="Search a film..." class="inputSearch pr-10" [(ngModel)]="searchName" (keyup)="onType($event)"/>
 				<span (click)="onSearch()" class="hidden pi pi-search absolute right-2 top-1 md:inline-block text-white text-2xl cursor-pointer hover:text-blue-500 transition-all duration-200"></span>

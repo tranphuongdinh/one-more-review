@@ -12,17 +12,17 @@ import { FilmComponent } from './film/film.component';
 import { AddFilmComponent } from './add-film/add-film.component';
 import { EditFilmComponent } from './edit-film/edit-film.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 
 const routes: Routes = [
   {
-    path: '',
-    component: HomePageComponent,
-    canActivate: [AuthGuard],
+    path: 'welcome',
+    component: WelcomeComponent,
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
+    path: '',
+    component: HomePageComponent,
     canActivate: [AuthGuard],
   },
   {
@@ -54,10 +54,10 @@ const routes: Routes = [
     path: 'edit-film/:id',
     component: EditFilmComponent,
   },
-	{
-		path: 'add-admin',
-		component: AddAdminComponent,
-	},
+  {
+    path: 'add-admin',
+    component: AddAdminComponent,
+  },
   {
     path: '**',
     component: PageNotFoundComponent,

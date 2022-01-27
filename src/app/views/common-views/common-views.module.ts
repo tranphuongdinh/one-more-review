@@ -29,6 +29,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
+import { WelcomeComponent } from './welcome/welcome.component';
 @NgModule({
   declarations: [
     PageNotFoundComponent,
@@ -43,6 +44,7 @@ import { PasswordModule } from 'primeng/password';
     EditFilmComponent,
     AddFilmComponent,
     AddAdminComponent,
+    WelcomeComponent,
   ],
   imports: [
     CommonModule,

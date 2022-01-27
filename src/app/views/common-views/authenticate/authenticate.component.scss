@@ -1,7 +1,7 @@
 @import "../../../../variables";
 
 .auth-container {
-  @apply flex justify-center items-center w-full min-h-screen bg-black py-4 md:py-14 px-2 md:px-24 shadow-xl;
+  @apply flex justify-center items-center w-full min-h-screen bg-black py-8 md:py-14 px-2 md:px-24 shadow-xl;
 	background-image: url('../../../../assets/imgs/background.jpg');
 	background-position: center;
 	background-repeat: no-repeat;
