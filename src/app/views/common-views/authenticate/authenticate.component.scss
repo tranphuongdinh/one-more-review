@@ -1,7 +1,7 @@
 @import "../../../../variables";
 
 .auth-container {
-  @apply flex justify-center items-center w-full min-h-screen bg-black py-14 px-24 shadow-xl;
+  @apply flex justify-center items-center w-full min-h-screen bg-black py-4 md:py-14 px-2 md:px-24 shadow-xl;
 	background-image: url('../../../../assets/imgs/background.jpg');
 	background-position: center;
 	background-repeat: no-repeat;
@@ -12,7 +12,7 @@
   }
   .main-container {
     @apply flex flex-col lg:flex-row justify-end items-center w-full bg-black relative rounded;
-		height: 80vh;
+		min-height: 80vh;
 		&.sign-up {
 			@apply justify-start;
 		}
@@ -72,6 +72,10 @@
               width: initial;
               @apply self-center;
             }
+
+						&.forgot-password {
+							@apply text-sm md:text-base;
+						}
           }
 
           input {
@@ -116,7 +120,7 @@
               @apply my-6;
             }
             @media (max-width: 576px) {
-              @apply my-5;
+              @apply my-5 text-sm;
             }
             background: $gradient-bg;
             background-size: 300%;
@@ -129,7 +133,7 @@
           .switch-link {
             @apply mt-3 w-full flex justify-center items-center;
             @media (max-width: 576px) {
-              @apply mt-2;
+              @apply mt-2 text-sm;
             }
             @media (max-width: 376px) {
               @apply mt-1;
